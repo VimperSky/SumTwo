@@ -6,10 +6,17 @@ namespace SumTwo
     {
         static void Main(string[] args)
         {
-            var provider = new CommandArgumentsNumberProvider().Create(args);
-            var calc = new Calculator(provider);
-            var sum = calc.Sum();
-            Console.WriteLine(sum);
+            try
+            {
+                var provider = new CommandArgumentsNumberProvider().Create(args);
+                var calc = new Calculator(provider);
+                var sum = calc.Sum();
+                Console.WriteLine(sum);
+            }
+            catch
+            {
+                Console.WriteLine("An unhandled error happened!");
+            }
         }
     }
 }

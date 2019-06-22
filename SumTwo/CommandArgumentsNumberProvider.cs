@@ -4,7 +4,7 @@ namespace SumTwo
 {
     public class CommandArgumentsNumberProvider : INumberProvider
     {
-        public int A { get; set;}
+        public int A { get; set; }
         public int B { get; set; }
 
         public INumberProvider Create(string[] args)

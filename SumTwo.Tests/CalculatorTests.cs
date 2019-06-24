@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using Moq;
 
 namespace SumTwo.Tests
 {
@@ -17,13 +18,18 @@ namespace SumTwo.Tests
         [InlineData(-2, 0)]        
         public void SignOfBiggerSign(int a, int b)
         {
+            // Arrange
             var bigger = (Math.Abs(a) > Math.Abs(b)) ? a : b;
             var biggerSign = (bigger >= 0) ? 1 : -1;
-            var testNumProvider = new StubNumberProvider(a, b);
 
-            var calc = new Calculator(testNumProvider);
+            // Act
+            var mock = new Mock<INumberProvider>();
+            mock.Setup(x => x.A).Returns(a);
+            mock.Setup(x => x.B).Returns(b);
+            var calc = new Calculator(mock.Object);
             var sum = calc.Sum();
 
+            // Assert
             Assert.True(sum * biggerSign >= 0);
         }
     }

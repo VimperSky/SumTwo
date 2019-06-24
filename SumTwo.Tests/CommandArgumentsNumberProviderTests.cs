@@ -5,19 +5,23 @@ namespace SumTwo.Tests
     public class CommandArgumentsNumberProviderTests
     {
         [Fact]
-        public void TestStringToIntBackConverting()
+        public void TestStringToIntConverting()
         {
+            // arrange
             var args = new string[2] {"2", "3"};
-            var provider = new CommandArgumentsNumberProvider().Create(args);
-            Assert.True(provider.A.ToString() == args[0] && provider.B.ToString() == args[1]);
+            // act
+            var provider = CommandArgumentsNumberProvider.Create(args);
+            // assert
+            Assert.True(provider.A == 2 && provider.B == 3);
         }
 
         [Fact]
-        public void TestStringToIntConverting()
+        public void TestWrongSendData()
         {
-            var args = new string[2] {"2", "3"};
-            var provider = new CommandArgumentsNumberProvider().Create(args);
-            Assert.True(provider.A == 2 && provider.B == 3);
+            // arrange
+            var args = new string[2] {"test", "kek"};
+            // act & assert
+            Assert.Throws<NumberException>( () => CommandArgumentsNumberProvider.Create(args));
         }
     }
 }

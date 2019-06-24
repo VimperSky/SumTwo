@@ -4,15 +4,28 @@ namespace SumTwo
 {
     public class CommandArgumentsNumberProvider : INumberProvider
     {
-        public int A { get; set; }
-        public int B { get; set; }
+        public int A { get; }
+        public int B { get; }
 
-        public INumberProvider Create(string[] args)
+        public CommandArgumentsNumberProvider(int a, int b)
         {
-            var provider = new CommandArgumentsNumberProvider();
-            provider.A = Convert.ToInt32(args[0]);
-            provider.B = Convert.ToInt32(args[1]);
-            return provider;
+            A = a;
+            B = b;
+        }
+
+        public static INumberProvider Create(string[] args)
+        {
+            try
+            {
+                int a = Convert.ToInt32(args[0]);
+                int b = Convert.ToInt32(args[1]);
+                var provider = new CommandArgumentsNumberProvider(a, b);
+                return provider;
+            }
+            catch
+            {
+                throw new NumberException("Can't convert to int32");
+            }
         }
     }
 }
